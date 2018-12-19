@@ -1,9 +1,6 @@
 package com.dingsoft.sdptransform
 
-import com.google.gson.Gson
-import com.google.gson.GsonBuilder
-import com.google.gson.reflect.TypeToken
-
+import com.alibaba.fastjson.TypeReference
 
 /**
  * @author wolfhan
@@ -12,15 +9,14 @@ import com.google.gson.reflect.TypeToken
 public class SdpTransform {
 
     private val sdpBridge = SdpBridge()
-    private val gson = Gson()
 
     public fun parse(sdp: String): SessionDescription {
-        return gson.fromJson(sdpBridge.parse(sdp), SessionDescription::class.java)
+        return com.alibaba.fastjson.JSON.parseObject(sdpBridge.parse(sdp), SessionDescription::class.java)
     }
 
-    public fun parseParams(params: String): Map<String, Any> { // Any: Int | String
-        val mapType = object : TypeToken<Map<String, Any>>() {}.type
-        return gson.fromJson(sdpBridge.parseParams(params), mapType)
+    public fun parseParams(params: String): Map<String, Any> {
+        val mapType = object : TypeReference<Map<String, Any>>() {}.type
+        return com.alibaba.fastjson.JSON.parseObject(sdpBridge.parseParams(params), mapType)
     }
 
     public fun parsePayloads(payloads: String): List<Int> {
@@ -46,17 +42,17 @@ public class SdpTransform {
     }
 
     public fun parseImageAttributes(params: String): List<Map<String, Any>> {
-        val listType = object : TypeToken<List<Map<String, Any>>>() {}.type
-        return gson.fromJson(sdpBridge.parseImageAttributes(params), listType)
+        val listType = object : TypeReference<List<Map<String, Any>>>() {}.type
+        return com.alibaba.fastjson.JSON.parseObject(sdpBridge.parseImageAttributes(params), listType)
     }
 
     public fun parseSimulcastStreamList(streams: String): List<List<SimulcastStream>> {
-        val listType = object : TypeToken<List<List<SimulcastStream>>>() {}.type
-        return gson.fromJson(sdpBridge.parseSimulcastStreamList(streams), listType)
+        val listType = object : TypeReference<List<List<SimulcastStream>>>() {}.type
+        return com.alibaba.fastjson.JSON.parseObject(sdpBridge.parseSimulcastStreamList(streams), listType)
     }
 
     public fun write(sdp: SessionDescription): String {
-        return sdpBridge.write(GsonBuilder().disableHtmlEscaping().create().toJson(sdp))
+        return sdpBridge.write(com.alibaba.fastjson.JSON.toJSONString(sdp))
     }
 
 }

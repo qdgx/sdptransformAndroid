@@ -18,48 +18,48 @@
                 android:orientation="vertical">
 
             <Button android:id="@+id/parse"
-                    android:text="parse"
+                    android:text="@string/parse"
                     android:onClick="parse"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
             <Button android:id="@+id/parseParams"
-                    android:text="parseParams"
+                    android:text="@string/parseparams"
                     android:onClick="parseParams"
                     app:layout_constraintTop_toBottomOf="@+id/parse"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
             <Button android:id="@+id/parsePayloads"
-                    android:text="parsePayloads"
+                    android:text="@string/parsepayloads"
                     android:onClick="parsePayloads"
                     app:layout_constraintTop_toBottomOf="@+id/parseParams"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
             <Button android:id="@+id/parseImageAttributes"
-                    android:text="parseImageAttributes"
+                    android:text="@string/parseimageattributes"
                     app:layout_constraintTop_toBottomOf="@+id/parsePayloads"
                     android:onClick="parseImageAttributes"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
             <Button android:id="@+id/parseSimulcastStreamList"
-                    android:text="parseSimulcastStreamList"
+                    android:text="@string/parsesimulcaststreamlist"
                     app:layout_constraintTop_toBottomOf="@+id/parseImageAttributes"
                     android:onClick="parseSimulcastStreamList"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
             <Button android:id="@+id/write"
-                    android:text="write"
+                    android:text="@string/write"
                     app:layout_constraintTop_toBottomOf="@+id/parseSimulcastStreamList"
                     android:onClick="write"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
             <TextView
-                    android:id="@+id/sample_text"
+                    android:id="@+id/result"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_constraintTop_toBottomOf="@+id/write"/>

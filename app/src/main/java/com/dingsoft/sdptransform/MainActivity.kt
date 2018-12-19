@@ -52,8 +52,8 @@ class MainActivity : AppCompatActivity() {
 
     fun parse(view: View) {
         val sessionDescription = sdpTransform.parse(sdp)
-        sample_text.text = JSON.toJSONString(sessionDescription, true)
-        Log.e(MainActivity::class.java.simpleName, sample_text.text.toString())
+        result.text = JSON.toJSONString(sessionDescription, true)
+        Log.e(MainActivity::class.java.simpleName, result.text.toString())
     }
 
     /*
@@ -65,8 +65,8 @@ class MainActivity : AppCompatActivity() {
         val fmtp = sessionDescription.media[1].fmtp
         if (fmtp != null) {
             val config = fmtp[0].config
-            sample_text.text = JSON.toJSONString(sdpTransform.parseParams(config), true)
-            Log.e(MainActivity::class.java.simpleName, sample_text.text.toString())
+            result.text = JSON.toJSONString(sdpTransform.parseParams(config), true)
+            Log.e(MainActivity::class.java.simpleName, result.text.toString())
         }
     }
 
@@ -78,8 +78,8 @@ class MainActivity : AppCompatActivity() {
         val sessionDescription = sdpTransform.parse(sdp)
         val payloads = sessionDescription.media[1].payloads
         if (payloads != null) {
-            sample_text.text = JSON.toJSONString(sdpTransform.parsePayloads(payloads), true)
-            Log.e(MainActivity::class.java.simpleName, sample_text.text.toString())
+            result.text = JSON.toJSONString(sdpTransform.parsePayloads(payloads), true)
+            Log.e(MainActivity::class.java.simpleName, result.text.toString())
         }
     }
 
@@ -98,8 +98,8 @@ class MainActivity : AppCompatActivity() {
             val imageAttr = imageAttrs[0]
             val attrs2 = imageAttr.attrs2
             if (attrs2 != null) {
-                sample_text.text = JSON.toJSONString(sdpTransform.parseImageAttributes(attrs2), true)
-                Log.e(MainActivity::class.java.simpleName, sample_text.text.toString())
+                result.text = JSON.toJSONString(sdpTransform.parseImageAttributes(attrs2), true)
+                Log.e(MainActivity::class.java.simpleName, result.text.toString())
             }
         }
     }
@@ -118,15 +118,15 @@ class MainActivity : AppCompatActivity() {
         val simulcastStream = sessionDescription.media[1].simulcast
         val streams = simulcastStream?.list1
         if (streams != null) {
-            sample_text.text = JSON.toJSONString(sdpTransform.parseSimulcastStreamList(streams), true)
-            Log.e(MainActivity::class.java.simpleName, sample_text.text.toString())
+            result.text = JSON.toJSONString(sdpTransform.parseSimulcastStreamList(streams), true)
+            Log.e(MainActivity::class.java.simpleName, result.text.toString())
         }
     }
 
     fun write(view: View) {
         val sessionDescription = sdpTransform.parse(sdp)
-        sample_text.text = sdpTransform.write(sessionDescription)
-        Log.e(MainActivity::class.java.simpleName, sample_text.text.toString())
+        result.text = sdpTransform.write(sessionDescription)
+        Log.e(MainActivity::class.java.simpleName, result.text.toString())
     }
 
 }

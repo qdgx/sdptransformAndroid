@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">sdptransformAndroid</string>
+    <string name="parse">parse</string>
+    <string name="parseparams">parseParams</string>
+    <string name="parsepayloads">parsePayloads</string>
+    <string name="parseimageattributes">parseImageAttributes</string>
+    <string name="parsesimulcaststreamlist">parseSimulcastStreamList</string>
+    <string name="write">write</string>
 </resources>

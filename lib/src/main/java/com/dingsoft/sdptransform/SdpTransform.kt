@@ -19,7 +19,7 @@ public class SdpTransform {
         return com.alibaba.fastjson.JSON.parseObject(sdpBridge.parseParams(params), mapType)
     }
 
-    public fun parsePayloads(payloads: String): List<Int> {
+    public fun parsePayloads(payloads: String): MutableCollection<Int> {
         val payloadStringList = sdpBridge.parsePayloads(payloads).split(" ")
         val payloadIntList = mutableListOf<Int>()
         if (payloadStringList.isNotEmpty()) {
@@ -41,13 +41,13 @@ public class SdpTransform {
         }
     }
 
-    public fun parseImageAttributes(params: String): List<Map<String, Any>> {
-        val listType = object : TypeReference<List<Map<String, Any>>>() {}.type
+    public fun parseImageAttributes(params: String): MutableCollection<Map<String, Any>> {
+        val listType = object : TypeReference<MutableCollection<Map<String, Any>>>() {}.type
         return com.alibaba.fastjson.JSON.parseObject(sdpBridge.parseImageAttributes(params), listType)
     }
 
-    public fun parseSimulcastStreamList(streams: String): List<List<SimulcastStream>> {
-        val listType = object : TypeReference<List<List<SimulcastStream>>>() {}.type
+    public fun parseSimulcastStreamList(streams: String): MutableCollection<MutableCollection<SimulcastStream>> {
+        val listType = object : TypeReference<MutableCollection<MutableCollection<SimulcastStream>>>() {}.type
         return com.alibaba.fastjson.JSON.parseObject(sdpBridge.parseSimulcastStreamList(streams), listType)
     }
 
@@ -110,11 +110,11 @@ public class SessionDescription : SharedDescriptionFields, SessionAttributes() {
     // r=
     var repeats: String? = null
     // m=video 51744 RTP/AVP 126 97 98 34 31
-    var media: List<Media> = emptyList()
+    var media: MutableCollection<Media> = arrayListOf()
 
     override var description: String? = null
     override var connection: SharedDescriptionFields.Connection? = null
-    override var bandwidth: List<SharedDescriptionFields.Bandwidth>? = null
+    override var bandwidth: MutableCollection<SharedDescriptionFields.Bandwidth>? = null
 
     public data class Origin(
         var username: String,
@@ -138,7 +138,7 @@ public class SessionDescription : SharedDescriptionFields, SessionAttributes() {
 public open class MediaDescription : SharedDescriptionFields, MediaAttributes() {
     override var description: String? = null
     override var connection: SharedDescriptionFields.Connection? = null
-    override var bandwidth: List<SharedDescriptionFields.Bandwidth>? = null
+    override var bandwidth: MutableCollection<SharedDescriptionFields.Bandwidth>? = null
 }
 
 /**
@@ -152,7 +152,7 @@ public open class SessionAttributes : SharedAttributes() {
     // a=ice-options:google-ice
     var iceOptions: String? = null
     // a=group:BUNDLE audio video
-    var groups: List<Group>? = null
+    var groups: MutableCollection<Group>? = null
 
     public data class Group(val type: String, val mids: String)
 }
@@ -165,16 +165,16 @@ public open class SessionAttributes : SharedAttributes() {
 public open class MediaAttributes : SharedAttributes() {
 
     // a=rtpmap:110 opus/48000/2
-    var rtp: List<Rtp>? = null
+    var rtp: MutableCollection<Rtp>? = null
     // a=rtcp:65179 IN IP4 193.84.77.194
     var rtcp: Rtcp? = null
     // a=rtcp-fb:98 nack rpsi
-    var rtcpFb: List<RtcpFb>? = null
+    var rtcpFb: MutableCollection<RtcpFb>? = null
     // a=rtcp-fb:98 trr-int 100
-    var rtcpFbTrrInt: List<RtcpFbTrrInt>? = null
+    var rtcpFbTrrInt: MutableCollection<RtcpFbTrrInt>? = null
     // a=fmtp:108 profile-level-id=24;bitrate=64000
     // a=fmtp:111 minptime=10; useinbandfec=1
-    var fmtp: List<Fmtp>? = null
+    var fmtp: MutableCollection<Fmtp>? = null
     // a=mid:audio
     var mid: String? = null
     // a=msid:0c8b064d-d807-43b4 46e0-8e16-7ef0db0db64a
@@ -186,21 +186,21 @@ public open class MediaAttributes : SharedAttributes() {
     // a=maxptime:60
     var maxptime: Int? = null
     // a=crypto:1 AES_CM_128_HMAC_SHA1_80 inline:PS1uQCVeeCFCanVmcjkpPywjNWhcYD0mXXtxaVBR|2^20|1:32
-    var crypto: List<Crypto>? = null
+    var crypto: MutableCollection<Crypto>? = null
     // a=candidate:0 1 UDP 2113667327 203.0.113.1 54400 typ host
     // a=candidate:1162875081 1 udp 2113937151 192.168.34.75 60017 typ host generation 0 network-id 3 network-cost 10
     // a=candidate:3289912957 2 udp 1845501695 193.84.77.194 60017 typ srflx raddr 192.168.34.75 rport 60017 generation 0 network-id 3 network-cost 10
     // a=candidate:229815620 1 tcp 1518280447 192.168.150.19 60017 typ host tcptype active generation 0 network-id 3 network-cost 10
     // a=candidate:3289912957 2 tcp 1845501695 193.84.77.194 60017 typ srflx raddr 192.168.34.75 rport 60017 tcptype passive generation 0 network-id 3 network-cost 10
-    var candidates: List<Candidate> = emptyList()
+    var candidates: MutableCollection<Candidate> = arrayListOf()
     // a=end-of-candidates
     var endOfCandidates: String? = null
     // a=remote-candidates:1 203.0.113.1 54400 2 203.0.113.1 54401
     var remoteCandidates: String? = null
     // a=ssrc:2566107569 cname:t9YU8M1UxTF8Y1A1
-    var ssrcs: List<Ssrc>? = null
+    var ssrcs: MutableCollection<Ssrc>? = null
     // a=ssrc-group:FEC-FR 3004364195 1080772241
-    var ssrcGroups: List<SsrcGroup>? = null
+    var ssrcGroups: MutableCollection<SsrcGroup>? = null
     // a=rtcp-mux
     var rtcpMux: String? = null
     // a=rtcp-rsize
@@ -210,11 +210,11 @@ public open class MediaAttributes : SharedAttributes() {
     // a=x-google-flag
     var xGoogleFlag: String? = null
     // a=rid:1 send max-width=1280;max-height=720
-    var rids: List<Rid>? = null
+    var rids: MutableCollection<Rid>? = null
     // a=imageattr:97 send [x=800,y=640,sar=1.1,q=0.6] [x=480,y=320] recv [x=330,y=250]
     // a=imageattr:* send [x=800,y=640] recv *
     // a=imageattr:100 recv [x=320,y=240]
-    var imageattrs: List<ImageAttr>? = null
+    var imageattrs: MutableCollection<ImageAttr>? = null
     // a=simulcast:send 1,2,3;~4,~5 recv 6;~7,~8
     // a=simulcast:recv 1;4,5 send 6;7
     var simulcast: Simulcast? = null
@@ -334,7 +334,7 @@ public open class SharedAttributes {
     var control: String? = null
     // a=extmap:1/recvonly URI-gps-string
     // a=extmap:2 urn:ietf:params:rtp-hdrext:toffset
-    var ext: List<Ext>? = null
+    var ext: MutableCollection<Ext>? = null
     // a=setup:actpass
     var setup: String? = null
     // a=ice-ufrag:F7gI
@@ -345,7 +345,7 @@ public open class SharedAttributes {
     var fingerprint: Fingerprint? = null
     // a=source-filter: incl IN IP4 239.5.2.31 10.1.15.5
     var sourceFilter: SourceFilter? = null
-    var invalid: List<Invalid>? = null
+    var invalid: MutableCollection<Invalid>? = null
 
     public data class Ext(
         var value: Int,
@@ -378,7 +378,7 @@ public interface SharedDescriptionFields {
     // c=IN IP4 10.47.197.26
     var connection: Connection?
     // b=AS:4000
-    var bandwidth: List<Bandwidth>?
+    var bandwidth: MutableCollection<Bandwidth>?
 
     public data class Connection(var version: Int, var ip: String)
 

@@ -1,10 +1,11 @@
-package com.dingsoft.sdptransform
+package com.dingsoft.sdptransform.demo
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
 import com.alibaba.fastjson.JSON
+import com.dingsoft.sdptransform.SdpTransform
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {

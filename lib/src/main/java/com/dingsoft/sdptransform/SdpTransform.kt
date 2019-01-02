@@ -149,12 +149,14 @@ public open class MediaDescription : SharedDescriptionFields, MediaAttributes() 
 public open class SessionAttributes : SharedAttributes() {
     // a=ice-lite
     var icelite: String? = null
-    // a=ice-options:google-ice
-    var iceOptions: String? = null
     // a=group:BUNDLE audio video
     var groups: MutableList<Group>? = null
+    // a=msid-semantic: WMS Jvlam5X3SX1OP6pn20zWogvaKJz5Hjf9OnlV
+    var msidSemantic: MsidSemantic? = null
 
     public data class Group(val type: String, val mids: String)
+
+    public data class MsidSemantic(val semantic: String, val token: String)
 }
 
 /**
@@ -179,8 +181,6 @@ public open class MediaAttributes : SharedAttributes() {
     var mid: String? = null
     // a=msid:0c8b064d-d807-43b4 46e0-8e16-7ef0db0db64a
     var msid: String? = null
-    // a=msid-semantic: WMS Jvlam5X3SX1OP6pn20zWogvaKJz5Hjf9OnlV
-    var msidSemantic: MsidSemantic? = null
     // a=ptime:20
     var ptime: Int? = null
     // a=maxptime:60
@@ -220,7 +220,7 @@ public open class MediaAttributes : SharedAttributes() {
     var simulcast: Simulcast? = null
     // a=simulcast: recv pt=97;98 send pt=97
     // a=simulcast: send rid=5;6;7 paused=6,7
-    var simulcast_03: String? = null
+    var simulcast_03: Simulcast_03? = null
     // a=framerate:25
     // a=framerate:29.97
     var framerate: Float? = null
@@ -235,34 +235,32 @@ public open class MediaAttributes : SharedAttributes() {
     public data class Rtp(
         var payload: Int,
         var codec: String,
-        var rate: Int?,
-        var encoding: String?
+        var rate: Int? = null,
+        var encoding: String? = null
     )
 
     public data class Rtcp(
         var port: Int,
-        var netType: String?,
-        var ipVer: Int?,
-        var address: String?
+        var netType: String? = null,
+        var ipVer: Int? = null,
+        var address: String? = null
     )
 
     public data class RtcpFb(
         var payload: String,
         var type: String,
-        var subtype: String?
+        var subtype: String? = null
     )
 
     public data class RtcpFbTrrInt(var payload: String, var value: Int)
 
     public data class Fmtp(var payload: Int, var config: String)
 
-    public data class MsidSemantic(val semantic: String, val token: String)
-
     public data class Crypto(
         var id: Int,
         var suite: String,
         var config: String,
-        var sessionConfig: String?
+        var sessionConfig: String? = null
     )
 
     public data class Candidate(
@@ -273,18 +271,18 @@ public open class MediaAttributes : SharedAttributes() {
         var ip: String,
         var port: Int,
         var type: String,
-        var raddr: String?,
-        var rport: Int?,
-        var tcptype: String?,
-        var generation: Int?,
-        var `network-id`: Int?,
-        var `network-cost`: Int?
+        var raddr: String? = null,
+        var rport: Int? = null,
+        var tcptype: String? = null,
+        var generation: Int? = null,
+        var `network-id`: Int? = null,
+        var `network-cost`: Int? = null
     )
 
     public data class Ssrc(
         var id: Int,
         var attribute: String,
-        var value: String?
+        var value: String? = null
     )
 
     public data class SsrcGroup(var semantics: String, var ssrcs: String)
@@ -298,22 +296,26 @@ public open class MediaAttributes : SharedAttributes() {
     public data class Rid(
         var id: String,
         var direction: String,
-        var params: String?
+        var params: String? = null
     )
 
     public data class ImageAttr(
         var pt: String,
         var dir1: String,
         var attrs1: String,
-        var dir2: String?,
-        var attrs2: String?
+        var dir2: String? = null,
+        var attrs2: String? = null
     )
 
     public data class Simulcast(
         var dir1: String,
         var list1: String,
-        var dir2: String?,
-        var list2: String?
+        var dir2: String? = null,
+        var list2: String? = null
+    )
+
+    public data class Simulcast_03(
+        var value: String
     )
 
 }
@@ -341,6 +343,8 @@ public open class SharedAttributes {
     var iceUfrag: String? = null
     // a=ice-pwd:x9cml/YzichV2+XlhiMu8g
     var icePwd: String? = null
+    // a=ice-options:google-ice
+    var iceOptions: String? = null
     // a=fingerprint:SHA-1 00:11:22:33:44:55:66:77:88:99:AA:BB:CC:DD:EE:FF:00:11:22:33
     var fingerprint: Fingerprint? = null
     // a=source-filter: incl IN IP4 239.5.2.31 10.1.15.5
@@ -349,9 +353,9 @@ public open class SharedAttributes {
 
     public data class Ext(
         var value: Int,
-        var direction: String?,
+        var direction: String? = null,
         var uri: String,
-        var config: String?
+        var config: String? = null
     )
 
     public data class Fingerprint(var type: String, var hash: String)

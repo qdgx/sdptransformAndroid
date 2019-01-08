@@ -118,7 +118,7 @@ public class SessionDescription : SharedDescriptionFields, SessionAttributes() {
 
     public data class Origin(
         var username: String,
-        var sessionId: Int,
+        var sessionId: Long,
         var sessionVersion: Int,
         var netType: String,
         var ipVer: Int,

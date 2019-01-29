@@ -152,11 +152,11 @@ public open class SessionAttributes : SharedAttributes() {
     // a=group:BUNDLE audio video
     var groups: MutableList<Group>? = null
     // a=msid-semantic: WMS Jvlam5X3SX1OP6pn20zWogvaKJz5Hjf9OnlV
-//    var msidSemantic: MsidSemantic? = null
+    var msidSemantic: MsidSemantic? = null
 
     public data class Group(val type: String, val mids: String)
 
-    public data class MsidSemantic(val semantic: String, val token: String)
+    public data class MsidSemantic(val semantic: String, val token: String?)
 }
 
 /**

@@ -752,7 +752,7 @@ namespace sdptransform
 						// push:
 						"",
 						// reg:
-						std::regex("^msid-semantic:\\s?(\\w*) (\\S*)"),
+						std::regex("^msid-semantic:\\s?(\\w+)\\s*(\\S*)"),
 						// names:
 						{ "semantic", "token" },
 						// types:

@@ -280,7 +280,7 @@ public open class MediaAttributes : SharedAttributes() {
     )
 
     public data class Ssrc(
-        var id: Int,
+        var id: Long,
         var attribute: String,
         var value: String? = null
     )
